@@ -21,8 +21,9 @@ module SEPA
       # set equivalent and hence a full stop is to be used.
       FALLBACK_EPC_CHAR = '.'.freeze
       private_constant :FALLBACK_EPC_CHAR
+      mapping_path = File.join(File.dirname(__FILE__), "../misc/epc_mapping.csv")
 
-      EPC_MAPPING = CSV.read("lib/misc/epc_mapping.csv", col_sep: ",").
+      EPC_MAPPING = CSV.read(mapping_path, col_sep: ",").
         each_with_object(Hash.new(FALLBACK_EPC_CHAR)) { |v, mappings| mappings[v.first] = v.last }.
         freeze
       private_constant :EPC_MAPPING
